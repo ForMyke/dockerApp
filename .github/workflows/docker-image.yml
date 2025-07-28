@@ -33,5 +33,6 @@ jobs:
           echo "Build Image"
           docker build docker build -t formykez/actions:0.0.2 .
       - name: Docker push
+        run: |
           echo "Push image"
           docker push -t formykez/actions:0.0.2
