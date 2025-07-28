@@ -28,7 +28,7 @@ jobs:
       - name: Docker build
         run: |
           echo "Build Image"
-          docker build -t formykez/actions:0.0.2 .
+          docker build -t formykez/actions:0.0.2 -f graphql-actions/Dockerfile .
       - name: Docker push
         run: |
           echo "Push image"
