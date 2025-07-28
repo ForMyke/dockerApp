@@ -25,14 +25,14 @@ jobs:
           echo "Start auth"
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
           echo "Login successful"
-      
-      # - name: Build the Docker image
-      #   run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
       - name: Docker build
         run: |
           echo "Build Image"
-          docker build docker build -t formykez/actions:0.0.2 .
+          docker build -t formykez/actions:0.0.2 .
       - name: Docker push
         run: |
           echo "Push image"
           docker push -t formykez/actions:0.0.2
+
+           # - name: Build the Docker image
+      #   run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
