@@ -29,10 +29,13 @@ jobs:
         run: |
           echo "Build Image"
           docker build -t formykez/actions:0.0.2 graphql-actions
+          docker build -t formykez/actions:lastest graphql-actions
       - name: Docker push
         run: |
           echo "Push image"
-          docker push  formykez/actions:0.0.2
+          docker push  formykez/actions:0.0.3
+          docker push  formykez/actions:lastest
+
 
       # - name: Build the Docker image
       #   run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
