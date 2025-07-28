@@ -15,27 +15,35 @@ jobs:
         with:
           # Corregido: 'fetch-depth' y su indentación
           fetch-depth: 0
+      - name: Git Semantic Version
+        uses: PaulHatch/semantic-version@v5.4.0
+        with:
+           major_pattern: "MAJOR"
+           minor_pattern: "MINOR"
+           version_format: "${major}.${minor}.${patch}-prerelease${increment}"
+        id: useversion
 
       # Corregido: Indentación del paso
       - name: auth
         env:
           DOCKER_USER: ${{ secrets.DOCKER_USER }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          NEW_VERSION: ${{ steps.useversion.outputs.version }}
         run: |
           echo "Start auth"
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
           echo "Login successful"
-      - name: Docker build
-        run: |
-          echo "Build Image"
-          docker build -t formykez/actions:0.0.2 graphql-actions
-          docker build -t formykez/actions:lastest graphql-actions
-      - name: Docker push
-        run: |
-          echo "Push image"
-          docker push  formykez/actions:0.0.3
-          docker push  formykez/actions:lastest
+      # - name: Docker build
+      #   run: |
+      #     echo "Build Image"
+      #     docker build -t formykez/actions:0.0.2 graphql-actions
+      #     docker build -t formykez/actions:lastest graphql-actions
+      # - name: Docker push
+      #   run: |
+      #     echo "Push image"
+      #     docker push  formykez/actions:0.0.3
+      #     docker push  formykez/actions:lastest
 
 
-      # - name: Build the Docker image
-      #   run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      # # - name: Build the Docker image
+      # #   run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
