@@ -28,11 +28,11 @@ jobs:
       - name: Docker build
         run: |
           echo "Build Image"
-          docker build formykez/actions:0.0.2 .
+          docker build -t formykez/actions:0.0.2 .
       - name: Docker push
         run: |
           echo "Push image"
-          docker push -t formykez/actions:0.0.2
+          docker push  formykez/actions:0.0.2
 
       # - name: Build the Docker image
       #   run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
