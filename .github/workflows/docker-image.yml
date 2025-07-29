@@ -28,22 +28,25 @@ jobs:
         env:
           DOCKER_USER: ${{ secrets.DOCKER_USER }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          NEW_VERSION: ${{ steps.useversion.outputs.version }}
         run: |
           echo "Start auth"
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
           echo "Login successful"
           echo "version $NEW_VERSION!@!@!#!@!@!@"
-      # - name: Docker build
-      #   run: |
-      #     echo "Build Image"
-      #     docker build -t formykez/actions:0.0.2 graphql-actions
-      #     docker build -t formykez/actions:lastest graphql-actions
-      # - name: Docker push
-      #   run: |
-      #     echo "Push image"
-      #     docker push  formykez/actions:0.0.3
-      #     docker push  formykez/actions:lastest
+      - name: Docker build
+        env:
+          NEW_VERSION: ${{ steps.useversion.outputs.version }}
+        run: |
+          echo "Build Image"
+          docker build -t formykez/actions:${NEW_VERSION} graphql-actions
+          docker build -t formykez/actions:lastest graphql-actions
+      - name: Docker push
+      env:
+          NEW_VERSION: ${{ steps.useversion.outputs.version }}
+        run: |
+          echo "Push image"
+          docker push  formykez/actions:${NEW_VERSION}
+          docker push  formykez/actions:lastest
 
 
       # # - name: Build the Docker image
